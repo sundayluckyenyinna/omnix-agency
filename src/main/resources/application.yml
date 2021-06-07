@@ -1,0 +1,33 @@
+####### Accion Microfinance Bank - Omnix Config #########
+---
+server:
+    port: 8888
+    
+spring:
+    application:
+        name: omnix-config
+    profiles:
+        active: native
+    cloud:
+        config:
+            server:
+                git:
+                    uri: file:///C:/Apps/Omnix/configserver
+    
+                    
+eureka:
+    client:
+        registerWithEureka: true
+        fetchRegistry: true
+        serviceUrl.defaultZone: http://localhost:8761/eureka/
+    instance:
+        hostname: localhost
+    server:
+        wait-time-in-ms-when-sync-empty: 0
+
+logging:
+    file:
+        name: C:/Omnix/logs/omnix.log
+        
+
+        

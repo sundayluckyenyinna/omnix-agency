@@ -1,0 +1,194 @@
+####### Accion Microfinance Bank - Omnix Config #########
+---
+server:
+    error:
+        include-message: never
+        include-binding-errors: always
+        include-exception: false
+        include-stacktrace: never
+    tomcat:
+        basedir: C:/Omnix/logs
+        accesslog:
+            enabled: true
+
+        
+#logging:
+#    level:
+#        org:
+#            apache:
+#                tomcat: DEBUG
+#                catalina: DEBUG
+
+logging:
+    file:
+        name: C:/Omnix/logs/omnix.log
+    level:
+        root: INFO
+                    
+jwt:
+    security:
+        key: j3H5Ld5nYmGWyULy6xwpOgfSH++NgKXnJMq20vpfd+8=t
+    access:
+        validity: 60000
+             
+springdoc:
+    swagger-ui:
+        enabled: true
+    api-docs:
+        enabled: true
+    operationsSorter: alpha
+    tagsSorter: alpha
+    pathsToMatch: /omnix/api/account/**, /omnix/api/customer/**, /omnix/api/teller/**, /omnix/api/funds-transfer/**, /omnix/api/user/**, /omnix/api/token/**
+    
+        
+zuul:
+    max:
+        host:
+            connections: 500
+    host:
+        socket-timeout-millis: 60000
+        connect-timeout-millis: 60000
+    strip-prefix: true
+    sensitiveHeaders: Cookie,Set-Cookie
+    ignored-services: "*"
+    prefix: /omnix/api
+    routes:
+        genericService:
+            serviceId: omnix-generic
+            url: http://localhost:9050
+        accountService:
+            serviceId: omnix-account
+            url: http://localhost:9051
+        customerService:
+            serviceId: omnix-customer
+            url: http://localhost:9052
+        fundstransferService:
+            serviceId: omnix-fundstransfer
+            url: http://localhost:9053
+        loanService:
+            serviceId: omnix-loan
+            url: http://localhost:9054
+    rateLimit:
+        enabled: true
+        repository: JPA
+        key-prefix: rate
+        behind-proxy: true
+        policy-list:
+            accountService:
+                - limit: 10
+                  refresh-interval: 60
+                  type:
+                      - origin
+            customerService:
+                - limit: 10
+                  refresh-interval: 60
+                  type:
+                      - origin
+            fundstransferService:
+                - limit: 10
+                  refresh-interval: 60
+                  type:
+                      - origin
+
+spring:
+    cloud:
+        loadbalancer:
+            ribbon:
+                enabled: false
+    config:
+        activate:
+            profile: dev
+    datasource:
+        initialization-mode: always
+        password: ENC(XI73Nd+oPhTanoVNg8Di0dAGwn82d6QT)
+        username: accionisservice
+        driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+        url: jdbc:sqlserver://localhost;databaseName=omnix
+    jpa:
+        hibernate:
+            ddl-auto: update
+            dialect: org.hibernate.dialect.SQLServer2012Dialect
+        show-sql: true
+        
+omnix:
+    t24:
+        host:
+            ip: 192.168.232.138
+            port: 8085
+        ofs:
+            source: env.OFS_SOURCE
+            id: GCS
+        environment:
+            type: TAFJ
+        tafj:
+            jboss:
+                username: omnix
+                password: Password!23
+    headoffice:
+        code: NG0010001
+    channel:
+        user:
+            mobile: ENC(tvcTA77wbbJ3tWsttIoEvT05xa0E8kJnV1jrVQHXAJo=)
+            ibanking : ENC(tvcTA77wbbJ3tWsttIoEvT05xa0E8kJnV1jrVQHXAJo=)
+            ussd: USERUSSD/Ligali1557
+            atm: ENC(tvcTA77wbbJ3tWsttIoEvT05xa0E8kJnV1jrVQHXAJo=)
+            pos: ENC(tvcTA77wbbJ3tWsttIoEvT05xa0E8kJnV1jrVQHXAJo=)
+            default: AUTHOR/123456
+            digital: ENC(tvcTA77wbbJ3tWsttIoEvT05xa0E8kJnV1jrVQHXAJo=)
+            agency: ENC(tvcTA77wbbJ3tWsttIoEvT05xa0E8kJnV1jrVQHXAJo=)
+        issuer: Entity Software Company
+    password:
+        change:
+            days: 30
+    api:
+        public:
+            encryption:
+                key: jWnZr4u7x!A%D*G-KaPdSgVkXp2s5v8y
+         
+admin:
+    consol:
+        ip: 0:0:0:0:0:0:0:1
+        
+
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
+                        
+
+ribbon:
+    ReadTimeout: 60000
+    ConnectTimeout: 60000
+    MaxAutoRetries: 0
+    MaxAutoRetriesNextServer: 1
+    eureka:
+        enabled: false
+        
+management:
+    endpoints:
+        web:
+            exposure:
+                include: gateway,metrics,refresh
+                
+eureka:
+    client:
+        fetchRegistry: true
+        registerWithEureka: true
+        serviceUrl:
+            defaultZone: http://localhost:8761/eureka/
+    instance:
+        hostname: localhost
+    server:
+        wait-time-in-ms-when-sync-empty: 0   
+
+feign:
+    client:
+        config:
+            default:
+                connectTimeout: 160000000
+                readTimeout: 160000000
