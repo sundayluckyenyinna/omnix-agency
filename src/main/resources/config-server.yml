@@ -1,5 +1,4 @@
 ####### Accion Microfinance Bank - Omnix Config #########
----
 server:
     error:
         include-message: never
@@ -10,6 +9,9 @@ server:
         basedir: C:/Omnix/logs
         accesslog:
             enabled: true
+    temp:
+        dir: C:/Omnix/temp
+    connection-timeout: 120000
 
         
 #logging:
@@ -21,7 +23,7 @@ server:
 
 logging:
     file:
-        name: C:/Omnix/logs/omnix.log
+        path: C:/Omnix/logs/omnix.log
     level:
         root: INFO
                     
@@ -38,36 +40,68 @@ springdoc:
         enabled: true
     operationsSorter: alpha
     tagsSorter: alpha
-    pathsToMatch: /omnix/api/account/**, /omnix/api/customer/**, /omnix/api/teller/**, /omnix/api/funds-transfer/**, /omnix/api/user/**, /omnix/api/token/**
-    
-        
+    pathsToMatch: /omnix/api/account/**, /omnix/api/customer/**, /omnix/api/teller/**, /omnix/api/funds-transfer/**, /omnix/api/user/**, /omnix/api/token/**, /omnix/api/qrpayment/**
+          
 zuul:
     max:
         host:
             connections: 500
     host:
-        socket-timeout-millis: 60000
-        connect-timeout-millis: 60000
+        socket-timeout-millis: 300000
+        connect-timeout-millis: 300000
     strip-prefix: true
     sensitiveHeaders: Cookie,Set-Cookie
     ignored-services: "*"
     prefix: /omnix/api
     routes:
-        genericService:
-            serviceId: omnix-generic
-            url: http://localhost:9050
+        configService:
+            serviceId: omnix-config
+            url: http://localhost:8888
         accountService:
             serviceId: omnix-account
-            url: http://localhost:9051
+            url: http://localhost:1000
+        airtimeService:
+            serviceId: omnix-airtime
+            url: http://localhost:1001
+        batchService:
+            serviceId: omnix-batchio
+            url: http://localhost:1002
+        bvnService:
+            serviceId: omnix-bvn
+            url: http://localhost:1003
+        cableTVService:
+            serviceId: omnix-cabletv
+            url: http://localhost:1004
+        creditBureauService:
+            serviceId: omnix-creditbureau
+            url: http://localhost:1005
         customerService:
             serviceId: omnix-customer
-            url: http://localhost:9052
+            url: http://localhost:1006
+        electricityService:
+            serviceId: omnix-electricity
+            url: http://localhost:1007
         fundstransferService:
             serviceId: omnix-fundstransfer
-            url: http://localhost:9053
+            url: http://localhost:1008
+        identityService:
+            serviceId: omnix-identity
+            url: http://localhost:1009
         loanService:
             serviceId: omnix-loan
-            url: http://localhost:9054
+            url: http://localhost:1010
+        walletService:
+            serviceId: omnix-wallet
+            url: http://localhost:1011
+        webdataService:
+            serviceId: omnix-webdata
+            url: http://localhost:1012
+        notificationService:
+            serviceId: omnix-notification
+            url: http://localhost:1013
+        qrpaymentService:
+            serviceId: omnix-qrpayment
+            url: http://localhost:1014
     rateLimit:
         enabled: true
         repository: JPA
@@ -89,6 +123,66 @@ zuul:
                   refresh-interval: 60
                   type:
                       - origin
+            airtimeService:
+                - limit: 10
+                  refresh-interval: 60
+                  type:
+                      - origin
+            bvnService:
+                - limit: 10
+                  refresh-interval: 60
+                  type:
+                      - origin
+            batchService:
+                - limit: 10
+                  refresh-interval: 60
+                  type:
+                      - origin
+            cableTVService:
+                - limit: 10
+                  refresh-interval: 60
+                  type:
+                      - origin
+            identityService:
+                - limit: 10
+                  refresh-interval: 60
+                  type:
+                      - origin
+            creditBureauService:
+                - limit: 10
+                  refresh-interval: 60
+                  type:
+                      - origin
+            loanService:
+                - limit: 10
+                  refresh-interval: 60
+                  type:
+                      - origin
+            electricityService:
+                - limit: 10
+                  refresh-interval: 60
+                  type:
+                      - origin
+            walletService:
+                - limit: 10
+                  refresh-interval: 60
+                  type:
+                      - origin
+            webdataService:
+                - limit: 10
+                  refresh-interval: 60
+                  type:
+                      - origin
+            notificationService:
+                - limit: 10
+                  refresh-interval: 60
+                  type:
+                      - origin
+            qrpaymentService:
+                - limit: 10
+                  refresh-interval: 60
+                  type:
+                      - origin
 
 spring:
     cloud:
@@ -98,9 +192,10 @@ spring:
     config:
         activate:
             profile: dev
+        location: C:/omnix/config/
     datasource:
         initialization-mode: always
-        password: ENC(XI73Nd+oPhTanoVNg8Di0dAGwn82d6QT)
+        password: ENC(uNfDdKt1Lg+TeJ8RecyxN9ypdYTo49XV)
         username: accionisservice
         driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
         url: jdbc:sqlserver://localhost;databaseName=omnix
@@ -112,31 +207,51 @@ spring:
         
 omnix:
     t24:
+        username: test  
+        password: Deploy$123
+        host: 192.168.1.112
+        offerletter:
+            path: /R16devp/bnk/bnk.data/eb/&HOLD&/
+    otp:
+        expiry:
+            insec: 60
+    encryption:
+        key: FLWSECK-f6be2996841f1da0dfb7e27b9a3bd5bf-X
+    middleware:
+        username: T24POT
         host:
-            ip: 192.168.232.138
-            port: 8085
-        ofs:
-            source: env.OFS_SOURCE
-            id: GCS
-        environment:
-            type: TAFJ
-        tafj:
-            jboss:
-                username: omnix
-                password: Password!23
+            ip: 10.10.0.52
+            port: 8099
+        signature:
+            method: SHA512
+        authorization: Basic VDI0UE9UOlQxQTJOM0s0UDVINlQ=
+        user:
+            secret: TYqZHpdjamZZs3XtgrDorw==
+        account:
+            balance:
+                url: http://10.10.0.52:8099/T24Gateway/services/generic/account/balance
     headoffice:
         code: NG0010001
+    digital:
+        branch:
+            code: NG0010068
+        loan:
+            code: 21057
+    artisan:
+        loan:
+            code: 21057
     channel:
         user:
-            mobile: ENC(tvcTA77wbbJ3tWsttIoEvT05xa0E8kJnV1jrVQHXAJo=)
-            ibanking : ENC(tvcTA77wbbJ3tWsttIoEvT05xa0E8kJnV1jrVQHXAJo=)
+            mobile: USERUSSD/Ligali1557
+            ibanking : USERUSSD/Ligali1557
             ussd: USERUSSD/Ligali1557
-            atm: ENC(tvcTA77wbbJ3tWsttIoEvT05xa0E8kJnV1jrVQHXAJo=)
-            pos: ENC(tvcTA77wbbJ3tWsttIoEvT05xa0E8kJnV1jrVQHXAJo=)
-            default: AUTHOR/123456
-            digital: ENC(tvcTA77wbbJ3tWsttIoEvT05xa0E8kJnV1jrVQHXAJo=)
-            agency: ENC(tvcTA77wbbJ3tWsttIoEvT05xa0E8kJnV1jrVQHXAJo=)
-        issuer: Entity Software Company
+            atm: USERUSSD/Ligali1557
+            pos: USERUSSD/Ligali1557
+            default: USERUSSD/Ligali1557
+            digital: USERUSSD/Ligali1557
+            agency: USERUSSD/Ligali1557
+            authorizer: AISAUTH/System321#
+        issuer: Accion Microfinance Bank
     password:
         change:
             days: 30
@@ -144,31 +259,184 @@ omnix:
         public:
             encryption:
                 key: jWnZr4u7x!A%D*G-KaPdSgVkXp2s5v8y
-         
+    airtime:
+        environment: Production
+        vendor: XpressPay
+    bvn:
+        environment: Production
+        vendor: SmileIdentity
+    cabletv:
+        environment: Production
+        vendor: XpressPay
+    credit:
+        bureau:
+            environment: Production
+            vendor: CRC
+    electricity:
+        environment: Production
+        vendor: XpressPay
+    nip:
+        environment: Production
+        vendor: NIBSS
+    identity:
+        environment: Test
+        vendor: SmileIdentity
+    loan:
+        artisan:
+            rollover:
+                100percent:
+                    threshold: 100000
+        environment: Production
+        threshold:
+            inquiry:
+                threemonth: 8
+            dishonored:
+                cheque: 2
+            overdue:
+                days: 60
+                amount: 10
+            writeoff: 0
+            deliquent:
+                loans: 20           
+    version:
+        customer: CUSTOMER,USSD.CIF/I/PROCESS//0
+        corporate:
+            customer: CUSTOMER,AMFB.NON.INDV.CIF
+        numbering:
+            code: AMFB.CREATE.ACCT,/I/PROCESS//0
+        account: ACCOUNT,AGENCY.AC/I/PROCESS//0
+        reversal: FUNDS.TRANSFER,PHB.GENERIC.ACTR.AIS/R/PROCESS//0
+        funds:
+            transfer: FUNDS.TRANSFER,PHB.GENERIC.ACTR.AIS/I/PROCESS/2/
+        transaction:
+            query: FUNDS.TRANSFER,PHB.GENERIC.ACTR.AIS/S/PROCESS//0
+        loan:
+            portfolio: AMFB.ACTIVE.CL.UPDNEW
+            query: LD.LOANS.AND.DEPOSITS,LD.CORR/S/PROCESS//0
+            liquidate: LD.LOANS.AND.DEPOSITS,EARLY.MAT/I/PROCESS//0
+        authorize:
+            funds:
+                transfer: FUNDS.TRANSFER,PHB.GENERIC.ACTR.AIS/A/PROCESS//0
+        card:
+            instant:
+                request: ISO.CARD.ISSUE,INSTANT/I/PROCESS//1
+                block: ISO.CARD.ISSUE,ISSUE/I/PROCESS//0
+        teller: TELLER.ID,/I/PROCESS//1
+    enquiry:
+        account:
+            statement: AIS.EM.STMT.ENT.BOOK.FIN
+    tier1:
+        trans: 20000
+        mobileWithdrawal: 3000
+        balance: 200000
+        mobileDaily: 30000
+    tier2:
+        trans: 50000
+        mobileWithdrawal: 10000
+        balance: 400000
+        mobileDaily: 100000
+    tier3:
+        deposit: 0
+        mobileWithdrawal: 100000
+        balance: 0
+        mobileDaily: 1000000
+    url:
+        identity:
+            validation: https://localhost:8443/omnix/api/identityService/validation
+        bvn:
+            validation: http://localhost:8443/omni/api/bvnService/validation
+        qrpayment:
+            nibss: http://192.234.10.118:80/api.php
+    income:
+        pl:
+            airtime:
+                ussd: PL54521
+                web: PL54534
+                agency: PL52028
+                mobile: PL54534
+            cabletv:
+                ussd: PL54532
+                web: PL54536
+                agency: PL52025
+                mobile: PL54536
+    expense:
+        accountopen:
+            bonus: 1002100523
+    start:
+        morning: 6
+        afternoon: 13
+        evening: 19
+        night: 24
+    end:
+        morning: 12
+        afternoon: 18
+        evening: 23
+        night: 5 
+    creditBureau:
+        refresh:
+            days: 30
+        data:
+            dump:
+                path: //10.10.0.27/c$/Omnix/DataUpload/CRC
+            upload:
+                path: C:/Omnix/DataUpload
+                crc:
+                    apikey: 23456789erty12345
+                    individual: https://files.creditreferencenigeria.net/crccreditbureau_Datasubmission_Webservice/JSON/api/neIndividualborrower/
+                    credit: https://files.creditreferencenigeria.net/crccreditbureau_Datasubmission_Webservice/JSON/api/nECreditInfo/
+                    guarantor: https://files.creditreferencenigeria.net/crccreditbureau_Datasubmission_Webservice/JSON/api/nEGuarantorInfo/
+        maximum:
+            rows: 100
+    mail:
+        username: accionservicemgt@accionmfb.com
+        password: ENC(NL2NBl4ia0OVZ3ayIqT2ILOakR3sop8SijEBf3Dowoo=)
+        host: smtp.zoho.com
+        port: 587
+        protocol: smtp
+        trust: smtp.zoho.com
+    wallet:
+        settlement:
+            account: 1999101793
+            mobile: 19999999909
+            customernumber: WS999999
+        central:
+            account: 9999999999
+            mobile: 29999999909
+            customernumber: WC999999
+    webdata:
+        token:
+            facebook: EAADe8Nc1lNABAGlrVoOZCZAyMcFpAZCDeA5ekymZB6vHJmB5iCl5waU71TQdHYoO6ZBlCLhhJpfgwtQGb2o6ZArlTuTgTNJRJAe9IxnOxXf595Y8aAH85Izi4Dc2M1CbCABim0biHLkLVWuU8hSfTgbUaKOekYkYNh8OxN5RwPxRVM4GqUYQZByfeskvsu0Jmv3OI503BAz1wZDZD
+            instagram: kalis
+        baseurl:
+            facebook: https://graph.facebook.com/v11.0/
+            instagram: https://graph.facebook.com/v11.0/
+        userid:
+            facebook: 1471035819804022
+            instagram: 1471035819804022
+    default:
+        account:
+            officer: 7801
+        other:
+            officer: 9998
+        sector: 1000
+    mono:
+        api:
+            url: https://api.withmono.com/account/auth
+        secret:
+            key: live_sk_OV6uepaFZ3VftX0A8KVV
+    indicina:
+        api:
+            url: https://api.indicina.co/api/v2/client/
+        secret:
+            key: 6YP9XHW-2T74HNG-GF8CR56-YY8SGWA
+        client:
+            id: accionmfb
+        customer:
+            id: ckpy5ebhx000001mi74zghkwg
 admin:
     consol:
-        ip: 0:0:0:0:0:0:0:1
-        
-
-hystrix:
-  command:
-    default:
-      execution:
-        timeout:
-          enabled: true
-        isolation:
-          thread:
-            timeoutInMilliseconds: 60000
-                        
-
-ribbon:
-    ReadTimeout: 60000
-    ConnectTimeout: 60000
-    MaxAutoRetries: 0
-    MaxAutoRetriesNextServer: 1
-    eureka:
-        enabled: false
-        
+        ip: 127.0.0.1,192.168.200.70
+                
 management:
     endpoints:
         web:
@@ -190,5 +458,24 @@ feign:
     client:
         config:
             default:
-                connectTimeout: 160000000
-                readTimeout: 160000000
+                connectTimeout: 1000000000
+                readTimeout: 1000000000
+      
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: false
+        isolation:
+          thread:
+            timeoutInMilliseconds: 300000                   
+#
+ribbon:
+    OkToRetryOnAllOperations: true
+    ReadTimeout: 5000000
+    ConnectTimeout: 5000000
+    MaxAutoRetries: 3
+    MaxAutoRetriesNextServer: 3
+    eureka:
+        enabled: false
