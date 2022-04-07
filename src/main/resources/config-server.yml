@@ -26,6 +26,8 @@ logging:
         path: C:/Omnix/logs/omnix.log
     level:
         root: INFO
+#    pattern:
+#        console: ''
                     
 jwt:
     security:
@@ -102,12 +104,23 @@ zuul:
         qrpaymentService:
             serviceId: omnix-qrpayment
             url: http://localhost:1014
+        agencyService:
+            serviceId: omnix-agency
+            url: http://localhost:1015
+        gatewayService:
+            serviceId: omnix-gateway
+            url: http://localhost:8443
     rateLimit:
         enabled: true
         repository: JPA
         key-prefix: rate
         behind-proxy: true
         policy-list:
+            gatewayService:
+                - limit: 10
+                  refresh-interval: 60
+                  type:
+                      - origin
             accountService:
                 - limit: 10
                   refresh-interval: 60
@@ -183,6 +196,11 @@ zuul:
                   refresh-interval: 60
                   type:
                       - origin
+            agencyService:
+                - limit: 10
+                  refresh-interval: 60
+                  type:
+                      - origin
 
 spring:
     cloud:
@@ -198,6 +216,9 @@ spring:
         password: ENC(uNfDdKt1Lg+TeJ8RecyxN9ypdYTo49XV)
         username: accionisservice
         driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+#------------This is production ----------------
+#        url: jdbc:sqlserver://192.168.1.37;databaseName=omnix
+#------------This is test ----------------------
         url: jdbc:sqlserver://localhost;databaseName=omnix
     jpa:
         hibernate:
@@ -206,20 +227,42 @@ spring:
         show-sql: true
         
 omnix:
+    agency:
+        banking:
+            grupp:
+                secretkey: MzI0MzU0MzI0MzU0NjQzNTQ2Cg
+                receivable: NGN1045100010001
+                splitaccount: 1001200123
+                fee: 0.375
+    charges:
+        account:
+            statement: 1000
     t24:
-        username: test  
-        password: Deploy$123
+        username: smsuser  
+        password: Smbshr@123
+#------------This is production ----------------
+#        host: 192.168.1.110
+#        port: 1572
+#------------This is test ----------------------
         host: 192.168.1.112
+        port: 1572
+        ofs:
+            id: GCS
+            source: env.OFS_SOURCE
         offerletter:
-            path: /R16devp/bnk/bnk.data/eb/&HOLD&/
+            path: /Live/bnk/bnk.data/eb/&HOLD&/
     otp:
         expiry:
-            insec: 60
+            insec: 600
     encryption:
         key: FLWSECK-f6be2996841f1da0dfb7e27b9a3bd5bf-X
     middleware:
         username: T24POT
         host:
+#------------This is production ----------------
+#            ip: 192.168.1.37
+#            port: 8087
+# --------- This is test credential ------------
             ip: 10.10.0.52
             port: 8099
         signature:
@@ -229,7 +272,7 @@ omnix:
             secret: TYqZHpdjamZZs3XtgrDorw==
         account:
             balance:
-                url: http://10.10.0.52:8099/T24Gateway/services/generic/account/balance
+                url: http://192.168.1.37:8087/T24Gateway/services/generic/account/balance
     headoffice:
         code: NG0010001
     digital:
@@ -279,7 +322,7 @@ omnix:
         environment: Production
         vendor: NIBSS
     identity:
-        environment: Test
+        environment: Production
         vendor: SmileIdentity
     loan:
         artisan:
@@ -359,6 +402,11 @@ omnix:
                 web: PL54536
                 agency: PL52025
                 mobile: PL54536
+            account:
+                statement: PL54532
+        ussd:
+            charge: 10
+                
     expense:
         accountopen:
             bonus: 1002100523
@@ -377,7 +425,7 @@ omnix:
             days: 30
         data:
             dump:
-                path: //10.10.0.27/c$/Omnix/DataUpload/CRC
+                path: //localhost/c$/Omnix/DataUpload/CRC
             upload:
                 path: C:/Omnix/DataUpload
                 crc:
@@ -390,6 +438,10 @@ omnix:
     mail:
         username: accionservicemgt@accionmfb.com
         password: ENC(NL2NBl4ia0OVZ3ayIqT2ILOakR3sop8SijEBf3Dowoo=)
+        contact:
+            center:
+                username: digitalservicemgt@accionmfb.com
+                password: Management1234#@
         host: smtp.zoho.com
         port: 587
         protocol: smtp
@@ -421,9 +473,9 @@ omnix:
         sector: 1000
     mono:
         api:
-            url: https://api.withmono.com/account/auth
+            url: https://api.withmono.com
         secret:
-            key: live_sk_OV6uepaFZ3VftX0A8KVV
+            key: test_sk_zcHTe4OcmG6DMflASKcs
     indicina:
         api:
             url: https://api.indicina.co/api/v2/client/
@@ -435,7 +487,7 @@ omnix:
             id: ckpy5ebhx000001mi74zghkwg
 admin:
     consol:
-        ip: 127.0.0.1,192.168.200.70
+        ip: 127.0.0.1,192.168.200.70,172.15.51.94
                 
 management:
     endpoints:
