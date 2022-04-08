@@ -217,9 +217,9 @@ spring:
         username: accionisservice
         driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
 #------------This is production ----------------
-#        url: jdbc:sqlserver://192.168.1.37;databaseName=omnix
+        url: jdbc:sqlserver://192.168.1.37;databaseName=omnix
 #------------This is test ----------------------
-        url: jdbc:sqlserver://localhost;databaseName=omnix
+#        url: jdbc:sqlserver://localhost;databaseName=omnix
     jpa:
         hibernate:
             ddl-auto: update
@@ -230,7 +230,7 @@ omnix:
     agency:
         banking:
             grupp:
-                secretkey: MzI0MzU0MzI0MzU0NjQzNTQ2Cg
+                secretkey: GRUPPSECK_7aacada92b3ee89a5a50bb2868624ab2847ddb200e458e793c
                 receivable: NGN1045100010001
                 splitaccount: 1001200123
                 fee: 0.375
@@ -241,11 +241,11 @@ omnix:
         username: smsuser  
         password: Smbshr@123
 #------------This is production ----------------
-#        host: 192.168.1.110
-#        port: 1572
-#------------This is test ----------------------
-        host: 192.168.1.112
+        host: 192.168.1.110
         port: 1572
+#------------This is test ----------------------
+#        host: 192.168.1.112
+#        port: 1572
         ofs:
             id: GCS
             source: env.OFS_SOURCE
@@ -260,11 +260,11 @@ omnix:
         username: T24POT
         host:
 #------------This is production ----------------
-#            ip: 192.168.1.37
-#            port: 8087
+            ip: 192.168.1.37
+            port: 8087
 # --------- This is test credential ------------
-            ip: 10.10.0.52
-            port: 8099
+#            ip: 10.10.0.52
+#            port: 8099
         signature:
             method: SHA512
         authorization: Basic VDI0UE9UOlQxQTJOM0s0UDVINlQ=
