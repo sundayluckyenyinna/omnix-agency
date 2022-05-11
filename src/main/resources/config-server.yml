@@ -217,9 +217,9 @@ spring:
         username: accionisservice
         driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
 #------------This is production ----------------
-        url: jdbc:sqlserver://192.168.1.37;databaseName=omnix
+#        url: jdbc:sqlserver://192.168.1.37;databaseName=omnix
 #------------This is test ----------------------
-#        url: jdbc:sqlserver://localhost;databaseName=omnix
+        url: jdbc:sqlserver://localhost;databaseName=omnix
     jpa:
         hibernate:
             ddl-auto: update
@@ -227,6 +227,14 @@ spring:
         show-sql: true
         
 omnix:
+    target:
+        savings:
+            poolaccount: NGN1045100010001
+            interest:
+                expense:
+                    account: NGN1045100010001
+                payable:
+                    account: NGN1045100010001
     agency:
         banking:
             grupp:
@@ -241,13 +249,13 @@ omnix:
         username: smsuser  
         password: Smbshr@123
 #------------This is production ----------------
-        host: 192.168.1.110
-        port: 1572
+#        host: 192.168.1.110
+#       port: 1572
 #------------This is test ----------------------
-#        host: 192.168.1.112
-#        port: 1572
+        host: 192.168.1.112
+        port: 1572
         ofs:
-            id: GCS
+            id: IBOFS
             source: env.OFS_SOURCE
         offerletter:
             path: /Live/bnk/bnk.data/eb/&HOLD&/
@@ -260,11 +268,11 @@ omnix:
         username: T24POT
         host:
 #------------This is production ----------------
-            ip: 192.168.1.37
-            port: 8087
+#            ip: 192.168.1.37
+#           port: 8087
 # --------- This is test credential ------------
-#            ip: 10.10.0.52
-#            port: 8099
+           ip: 10.10.0.52
+           port: 8099
         signature:
             method: SHA512
         authorization: Basic VDI0UE9UOlQxQTJOM0s0UDVINlQ=
@@ -323,7 +331,7 @@ omnix:
         vendor: NIBSS
     identity:
         environment: Production
-        vendor: SmileIdentity
+        vendor: YouVerifiy
     loan:
         artisan:
             rollover:
@@ -436,8 +444,8 @@ omnix:
         maximum:
             rows: 100
     mail:
-        username: accionservicemgt@accionmfb.com
-        password: ENC(NL2NBl4ia0OVZ3ayIqT2ILOakR3sop8SijEBf3Dowoo=)
+        username: HRCares@accionmfb.com
+        password: Informations123@
         contact:
             center:
                 username: digitalservicemgt@accionmfb.com
