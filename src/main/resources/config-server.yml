@@ -234,7 +234,7 @@ omnix:
                 expense:
                     account: NGN1045100010001
                 payable:
-                    account: NGN1045100010001
+                    account: NGN1604800010001
     agency:
         banking:
             grupp:
@@ -242,6 +242,8 @@ omnix:
                 receivable: NGN1045100010001
                 splitaccount: 1001200123
                 fee: 0.375
+            trifta:
+                account: 1001200123
     charges:
         account:
             statement: 1000
@@ -268,7 +270,7 @@ omnix:
         username: T24POT
         host:
 #------------This is production ----------------
-#            ip: 192.168.1.37
+#           ip: 192.168.1.37
 #           port: 8087
 # --------- This is test credential ------------
            ip: 10.10.0.52
