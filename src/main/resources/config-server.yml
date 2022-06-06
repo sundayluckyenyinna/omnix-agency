@@ -229,12 +229,13 @@ spring:
 omnix:
     target:
         savings:
-            poolaccount: NGN1045100010001
+            poolaccount: NGN1613700010001
             interest:
                 expense:
-                    account: NGN1045100010001
+                    account: PL50510
                 payable:
-                    account: NGN1604800010001
+                    account: NGN1613800010001
+                    witholdingtax: NGN1602100010001
     agency:
         banking:
             grupp:
@@ -389,9 +390,9 @@ omnix:
         balance: 400000
         mobileDaily: 100000
     tier3:
-        deposit: 0
+        deposit: 1000000000
         mobileWithdrawal: 100000
-        balance: 0
+        balance: 1000000000
         mobileDaily: 1000000
     url:
         identity:
