@@ -353,6 +353,9 @@ omnix:
             deliquent:
                 loans: 20           
     version:
+        scorecard:
+            view: AMFB.CUST.CEF,VIEW/S/PROCESS//0
+            update: AMFB.CUST.CEF,VIEW/I/PROCESS//0
         customer: CUSTOMER,USSD.CIF/I/PROCESS//0
         corporate:
             customer: CUSTOMER,AMFB.NON.INDV.CIF
