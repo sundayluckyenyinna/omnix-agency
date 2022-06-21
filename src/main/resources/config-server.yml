@@ -297,7 +297,7 @@ omnix:
     channel:
         user:
             mobile: USERUSSD/Ligali1557
-            ibanking : USERUSSD/Ligali1557
+            ibanking: USERUSSD/Ligali1557
             ussd: USERUSSD/Ligali1557
             atm: USERUSSD/Ligali1557
             pos: USERUSSD/Ligali1557
@@ -305,6 +305,7 @@ omnix:
             digital: USERUSSD/Ligali1557
             agency: USERUSSD/Ligali1557
             authorizer: AISAUTH/System321#
+            website: USERUSSD/Ligali1557
         issuer: Accion Microfinance Bank
     password:
         change:
