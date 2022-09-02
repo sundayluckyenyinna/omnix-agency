@@ -217,9 +217,9 @@ spring:
         username: accionisservice
         driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
 #------------This is production ----------------
-#        url: jdbc:sqlserver://192.168.1.37;databaseName=omnix
+        url: jdbc:sqlserver://192.168.1.37;databaseName=omnix
 #------------This is test ----------------------
-        url: jdbc:sqlserver://localhost;databaseName=omnix
+#        url: jdbc:sqlserver://10.10.0.32;databaseName=omnix
     jpa:
         hibernate:
             ddl-auto: update
@@ -252,11 +252,11 @@ omnix:
         username: smsuser  
         password: Smbshr@123
 #------------This is production ----------------
-#        host: 192.168.1.110
-#       port: 1572
-#------------This is test ----------------------
-        host: 192.168.1.112
+        host: 192.168.1.110
         port: 1572
+#------------This is test ----------------------
+#        host: 192.168.1.112
+#        port: 1572
         ofs:
             id: IBOFS
             source: env.OFS_SOURCE
@@ -268,22 +268,26 @@ omnix:
     encryption:
         key: FLWSECK-f6be2996841f1da0dfb7e27b9a3bd5bf-X
     middleware:
-        username: T24POT
+        username: OMNIX1
         host:
 #------------This is production ----------------
-#           ip: 192.168.1.37
-#           port: 8087
+           ip: 192.168.1.37
+           port: 8087
 # --------- This is test credential ------------
-           ip: 10.10.0.52
-           port: 8099
+#           ip: 10.10.0.52
+#           port: 8099
         signature:
             method: SHA512
-        authorization: Basic VDI0UE9UOlQxQTJOM0s0UDVINlQ=
+        authorization: Basic T01OSVgxOlQxQTJOM0s0UDVINlQ=
         user:
             secret: TYqZHpdjamZZs3XtgrDorw==
         account:
             balance:
                 url: http://192.168.1.37:8087/T24Gateway/services/generic/account/balance
+        grupp:
+            username: GRUPP1     
+            password: G1A2N3M4P5HKP
+            secretKey: TYqZHpdjamZZs3XtgrDorw==
     headoffice:
         code: NG0010001
     digital:
