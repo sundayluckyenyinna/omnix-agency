@@ -42,7 +42,7 @@ springdoc:
         enabled: true
     operationsSorter: alpha
     tagsSorter: alpha
-    pathsToMatch: /omnix/api/account/**, /omnix/api/customer/**, /omnix/api/teller/**, /omnix/api/funds-transfer/**, /omnix/api/user/**, /omnix/api/token/**, /omnix/api/qrpayment/**
+    pathsToMatch: /omnix/api/account/**, /omnix/api/customer/**, /omnix/api/teller/**, /omnix/api/funds-transfer/**, /omnix/api/user/**, /omnix/api/token/**, /omnix/api/qrpayment/**, /omnix/api/savings/**
           
 zuul:
     max:
@@ -107,9 +107,13 @@ zuul:
         agencyService:
             serviceId: omnix-agency
             url: http://localhost:1015
+        savingsService:
+            serviceId: omnix-savings
+            url: http://localhost:1016
         gatewayService:
             serviceId: omnix-gateway
             url: http://localhost:8443
+
     rateLimit:
         enabled: true
         repository: JPA
@@ -201,6 +205,13 @@ zuul:
                   refresh-interval: 60
                   type:
                       - origin
+            savingsService:
+                - limit: 10
+                  refresh-interval: 60
+                  type:
+                      - origin
+                  
+            
 
 spring:
     cloud:
@@ -217,9 +228,9 @@ spring:
         username: accionisservice
         driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
 #------------This is production ----------------
-        url: jdbc:sqlserver://192.168.1.37;databaseName=omnix
+#        url: jdbc:sqlserver://192.168.1.37;databaseName=omnix
 #------------This is test ----------------------
-#        url: jdbc:sqlserver://10.10.0.32;databaseName=omnix
+        url: jdbc:sqlserver://10.10.0.32;databaseName=omnix;encrypt=true;trustServerCertificate=true;
     jpa:
         hibernate:
             ddl-auto: update
@@ -252,11 +263,11 @@ omnix:
         username: smsuser  
         password: Smbshr@123
 #------------This is production ----------------
-        host: 192.168.1.110
-        port: 1572
-#------------This is test ----------------------
-#        host: 192.168.1.112
+#        host: 192.168.1.110
 #        port: 1572
+#------------This is test ----------------------
+        host: 192.168.1.112
+        port: 1572
         ofs:
             id: IBOFS
             source: env.OFS_SOURCE
@@ -271,11 +282,11 @@ omnix:
         username: OMNIX1
         host:
 #------------This is production ----------------
-           ip: 192.168.1.37
-           port: 8087
+#           ip: 192.168.1.37
+#           port: 8087
 # --------- This is test credential ------------
-#           ip: 10.10.0.52
-#           port: 8099
+           ip: 10.10.0.52
+           port: 8099
         signature:
             method: SHA512
         authorization: Basic T01OSVgxOlQxQTJOM0s0UDVINlQ=
