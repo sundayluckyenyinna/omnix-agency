@@ -61,7 +61,7 @@ zuul:
             url: http://localhost:8888
         accountService:
             serviceId: omnix-account
-            url: http://localhost:1000
+            url: http://10.10.0.32:1000
         airtimeService:
             serviceId: omnix-airtime
             url: http://localhost:1001
@@ -76,16 +76,16 @@ zuul:
             url: http://localhost:1004
         creditBureauService:
             serviceId: omnix-creditbureau
-            url: http://localhost:1005
+            url: http://10.10.0.32:1005
         customerService:
             serviceId: omnix-customer
-            url: http://localhost:1006
+            url: http://10.10.0.32:1006
         electricityService:
             serviceId: omnix-electricity
             url: http://localhost:1007
         fundstransferService:
             serviceId: omnix-fundstransfer
-            url: http://localhost:1008
+            url: http://10.10.0.32:1008
         identityService:
             serviceId: omnix-identity
             url: http://localhost:1009
@@ -116,6 +116,12 @@ zuul:
         ivrService:
             serviceId: omnix-ivr
             url: http://localhost:1017
+        storageService:
+            serviceId: omnix-storage
+            url: http://localhost:1019
+        partnershipService:
+            serviceId: omnix-partnership
+            url: http://localhost:1020
 
     rateLimit:
         enabled: true
@@ -230,8 +236,7 @@ spring:
     datasource:
         initialization-mode: always
         username: omnixservice
-        password: Password@321
-#        username: accionisservice
+        password: Ab123456
         driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
 #------------This is test ----------------------
         url: jdbc:sqlserver://10.10.0.32;databaseName=omnix;encrypt=true;trustServerCertificate=true;
@@ -536,6 +541,11 @@ omnix:
             id: accionmfb
         customer:
             id: ckpy5ebhx000001mi74zghkwg
+
+    paystack:
+        receivable:
+            account: NGN1046800010001
+
 admin:
     consol:
         ip: 127.0.0.1,192.168.200.70,172.15.51.94
@@ -617,4 +627,8 @@ nibbs:
     authorize_url: https://idsandbox.nibss-plc.com.ng/oxauth/authorize.htm
     token_url: https://idsandbox.nibss-plc.com.ng/oxauth/restv1/token
     bvn_url: https://apitest.nibss-plc.com.ng/bvnconsent/v1/getPartialDetailsWithBvn
-            
+
+iris:
+  server:
+    host: 192.168.1.18
+    port: 8080

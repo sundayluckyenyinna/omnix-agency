@@ -28,6 +28,11 @@ eureka:
 logging:
     file:
         name: C:/Omnix/logs/omnix.log
-        
 
-        
+
+
+
+iris:
+    server:
+        host: 192.168.1.18
+        port: 8080

@@ -1,6 +1,7 @@
 package com.accionmfb.omnix.configserver;
 
 import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
+import lombok.extern.slf4j.Slf4j;
 import org.jasypt.encryption.StringEncryptor;
 import org.jasypt.encryption.pbe.PooledPBEStringEncryptor;
 import org.jasypt.encryption.pbe.config.SimpleStringPBEConfig;
@@ -11,11 +12,15 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @SpringBootApplication
 @EnableConfigServer
 @EnableEurekaClient
 @EnableEncryptableProperties
 @EnableFeignClients
+@Slf4j
 public class ConfigserverApplication {
 
     public static void main(String[] args) {
