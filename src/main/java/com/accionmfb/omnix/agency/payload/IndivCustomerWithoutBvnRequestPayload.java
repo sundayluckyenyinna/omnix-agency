@@ -1,0 +1,202 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.accionmfb.omnix.agency.payload;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+/**
+ *
+ * @author bokon
+ */
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public class IndivCustomerWithoutBvnRequestPayload {
+
+    @NotNull(message = "Last name cannot be null")
+    @NotEmpty(message = "Last name cannot be empty")
+    @NotBlank(message = "Last name cannot be blank")
+    private String lastName;
+    @NotNull(message = "Other names cannot be null")
+    @NotEmpty(message = "Other names cannot be empty")
+    @NotBlank(message = "Other names cannot be blank")
+    private String otherName;
+    @NotNull(message = "Date of birth cannot be null")
+    @NotEmpty(message = "Date of birth cannot be empty")
+    @NotBlank(message = "Date of birth cannot be blank")
+    @Pattern(regexp = "^\\d{4}\\-(0[1-9]|1[012])\\-(0[1-9]|[12][0-9]|3[01])$", message = "Date of birth must be like 2021-01-13")
+    private String dob;
+    @NotNull(message = "Gender cannot be null")
+    @NotEmpty(message = "Gender cannot be empty")
+    @NotBlank(message = "Gender cannot be blank")
+    @Pattern(regexp = "^(Female|Male)$", message = "Value must be either Female or Male")
+    private String gender;
+    @NotNull(message = "Marital status cannot be null")
+    @NotEmpty(message = "Marital status cannot be empty")
+    @NotBlank(message = "Marital status cannot be blank")
+    @Pattern(regexp = "^(Single|Married|Divorced)$", message = "Value must be either Single, Married or Divorced")
+    private String maritalStatus;
+    private String branchCode;
+    @NotNull(message = "Mobile number cannot be null")
+    @NotEmpty(message = "Mobile number cannot be empty")
+    @NotBlank(message = "Mobile number cannot be blank")
+    @Pattern(regexp = "[0-9]{11}", message = "11 digit mobile number required")
+    private String mobileNumber;
+    @NotNull(message = "State of residence cannot be null")
+    @NotEmpty(message = "State of residence cannot be empty")
+    @NotBlank(message = "State of residence cannot be blank")
+    private String stateOfResidence;
+    @NotNull(message = "City of residence cannot be null")
+    @NotEmpty(message = "City of residence cannot be empty")
+    @NotBlank(message = "City of residence cannot be blank")
+    private String cityOfResidence;
+    @NotNull(message = "Residential address cannot be null")
+    @NotEmpty(message = "Residential address cannot be empty")
+    @NotBlank(message = "Residential address cannot be blank")
+    private String residentialAddress;
+    private String accountOfficer;
+    private String otherOfficer;
+    private String sector;
+    @NotBlank(message = "Hash value is required")
+    @Schema(name = "Hash value", example = "OBA67XXTY78999GHTRE", description = "Encrypted hash value is required")
+    private String hash;
+    @Email
+    private String email;
+    @NotNull(message = "Request id cannot be null")
+    @NotEmpty(message = "Request id cannot be empty")
+    @NotBlank(message = "Request id cannot be blank")
+    private String requestId;
+    private String inputter;
+    private String authorizer;
+    private String potentialCustomerId;
+    private String applicationDate;
+    private String processingDate;
+    private String title;
+    private String initials;
+    private String placeOfBirth;
+    private String motherMaidenName;
+    private String education;
+    private String loanOfficer;
+    private String savingOfficer;
+    private String recoveryOfficer;
+    private String occupation;
+    private String preferedLanguage;
+    private String noOfChildren;
+    private String sourceOfInfo;
+    private String noOfDependants;
+    private String idType;
+    private String idNumber;
+    private String idExpiryDate;
+    private String otherId;
+    private String landmark;
+    private String livingSince;
+    private String typeOfHouse;
+    private String mortgage;
+    private String fixedPhone;
+    private String businessName;
+    private String typeOfBusiness;
+    private String businessRegistered;
+    private String businessRegistrationNo;
+    private String dateRegistered;
+    private String economicSector;
+    private String typeOfEstablishment;
+    private String businessActivity;
+    private String ageOfBusiness;
+    private String timeInBusinessLocation;
+    private String businessStreetNumber;
+    private String businessCity;
+    private String businessState;
+    private String businessNeighbourhood;
+    private String businessLandmark;
+    private String businessPhone;
+    private String spouseLastname;
+    private String spouseFirstname;
+    private String spouseId;
+    private String spouseIdNumber;
+    private String spouseRelationship;
+    private String spouseMobileNumber;
+    private String spouseOther;
+    private String spouseCustomerNumber;
+    private String personalReferenceName;
+    private String personalReferenceRelation;
+    private String personalReferencePhone;
+    private String supplierName;
+    private String supplierContactPerson;
+    private String supplierPhone;
+    private String referenceNumber;
+    private String homeVerificationCompleted;
+    private String collateralAmount;
+    private String loanPurpose;
+    private String loanAmountRequested;
+    private String loanTerm;
+    private String loanFrequency;
+    private String employer;
+    private String employmentPosition;
+    private String employedSince;
+    private String employerPostalAddress;
+    private String employerPhysicalAddress;
+    private String employerNeighbourhood;
+    private String employerLandmark;
+    private String employerTown;
+    private String employerState;
+    private String employerPhone;
+    private String employementNumber;
+    private String employerCounty;
+    private String relationshipIndicator;
+    private String officer;
+    private String typeOfOfficer;
+    private String blocked;
+    private String insurable;
+    private String taxId;
+    private String mailingList;
+    private String mailingListStatement;
+    private String mailingListLetter;
+    private String mailingListLabel;
+    private String minimumBalanceAt55;
+    private String minimumBalanceAt60;
+    private String minimumBalanceAt65;
+    private String minimumBalanceAt70;
+    private String creditCheckDone;
+    private String creditIndicator;
+    private String consentToDisclosure;
+    private String signatureDate;
+    private String nominationForm;
+    private String nominationBeneficiaryName;
+    private String nominationAddress;
+    private String nominationPhone;
+    private String nominationRelationship;
+    private String nominationAmount;
+    private String nominationCustomerNumber;
+    private String nominationTown;
+    private String nominationCounty;
+    private String nominationState;
+    private String nominationPostalCode;
+    private String industryClassification;
+    private String loansWrittenOff;
+    private String areaCode;
+    private String nonQualifying;
+    private String otherAccountNumber;
+    private String otherAccountBankBranch;
+    private String otherAccountSortCode;
+    private String otherAccountDateOpened;
+    private String smsNotification;
+    private String smsNotificationMobile;
+    private String smsNotificationHomePhone;
+    private String smsNotificationWorkPhone;
+    private String emailAddress;
+    private String fax;
+    private String primaryAccount;
+}

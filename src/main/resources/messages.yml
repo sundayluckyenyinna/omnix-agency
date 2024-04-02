@@ -1,0 +1,47 @@
+######### Accion MfB Agency Banking Microservice Global Messages ############
+---
+appMessages:
+  account:
+    notexist: No record found for the account number {0}
+    nottrifta: The account number {0} is not associated with Trifta
+  agent:
+    notexist: No agent exist with ID, Terminal ID or Account Number {0}
+    exist: An agent with the {0} {1} exist for the Vendor {2}
+    account:
+      notexist: No account number is mapped to terminal ID {0}
+      invalid: No agent exist with the account number {0}
+    mobile:
+      notexist: No agent exist with phone number {0}
+  biller:
+    notexist: The biller {0} does not exist or is invalid
+  bank:
+    noexist: No bank record exist with the bank code {0}
+  customer:
+    inactive: The Agent with terminal ID or account number {0} is inactive
+    noexist: No customer record found using the mobile or customer number {0}
+  transaction:
+    disallowed: You are not allowed to perform this transaction
+  user:
+    notexist: The request is from an unknown user {0}
+  branch:
+    noexist: No branch record exist with the branch code {0}
+  request:
+    processing: Your request is processing. Do not repeat without a check
+    hash:
+      failed: Bad request
+    sameid: A record with the Request ID {0} already exist
+    norole: You do not have permission to use this resource
+  fallback:
+    account: Unable to process your request at this moment. Service will be back shortly - {0}
+
+  missingRequiredField: Required filed(s) missing in the request.
+  operationSuccessful: Requested Operation completed successfully.
+  invalidPIN: Authorization failed. Invalid PIN.
+  invalidLength: Invalid phone number.
+  saveBrightaAccountExist: Oops! You seem to already have a SaveBrighta Account.
+  recordNotFound: Selected record ID invalid or record cannot be found.
+  nextInput: Validation ok.... Supply next Input.
+  bvnMismatch: BVN supplied does not match the Mobile Number.
+  invalidPINLength: Invalid PIN. Enter 4 digit PIN.
+  invalidMenuPointer: Unable to process your request. Please try again.
+    
