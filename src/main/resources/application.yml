@@ -13,8 +13,13 @@ spring:
             server:
                 git:
                     uri: file:///C:/Apps/Omnix/configserver
-    
-                    
+
+
+    redis:
+        host: localhost
+        port: 6379
+
+
 eureka:
     client:
         registerWithEureka: true
